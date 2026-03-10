@@ -19,11 +19,6 @@ public class DbConnection {
         }
     }
 
-    /**
-     * Retourne une nouvelle instance d'EntityManager.
-     * 
-     * @return EntityManager
-     */
     public static EntityManager getEntityManager() {
         return factory.createEntityManager();
     }

@@ -16,7 +16,7 @@ public class DashboardServlet extends HttpServlet {
     private final DeclarationService declarationService = new DeclarationService();
     private final CotisationService cotisationService = new CotisationService();
 
-    // Define a simple DTO inner class for the view
+
     public static class ActivityDTO {
         private String entite;
         private String type;
@@ -57,17 +57,16 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Stats
         request.setAttribute("employeurCount", employeurService.getAllEmployeurs().size());
         request.setAttribute("assureCount", assureService.getAllAssures().size());
         request.setAttribute("declarationCount", declarationService.getAllDeclarations().size());
         request.setAttribute("cotisationCount", cotisationService.getAllCotisations().size());
 
-        // Recent Activities logic
+
         java.util.List<ActivityDTO> activities = new java.util.ArrayList<>();
         java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-        // Declarations
+
         java.util.List<com.esocial.model.Declaration> decls = declarationService.getAllDeclarations();
         decls.sort(java.util.Comparator.comparing(com.esocial.model.Declaration::getId).reversed());
         for (int i = 0; i < Math.min(2, decls.size()); i++) {
@@ -78,7 +77,6 @@ public class DashboardServlet extends HttpServlet {
                     "Déclaration " + d.getMois() + "/" + d.getAnnee(), dateStr, "Validé", "badge-success"));
         }
 
-        // Employeurs
         java.util.List<com.esocial.model.Employeur> employeurs = employeurService.getAllEmployeurs();
         employeurs.sort(java.util.Comparator.comparing(com.esocial.model.Employeur::getId).reversed());
         for (int i = 0; i < Math.min(2, employeurs.size()); i++) {
@@ -88,7 +86,6 @@ public class DashboardServlet extends HttpServlet {
                     new ActivityDTO(e.getRaisonSociale(), "Nouvel Employeur", dateStr, "Enregistré", "badge-success"));
         }
 
-        // Assures
         java.util.List<com.esocial.model.Assure> assures = assureService.getAllAssures();
         assures.sort(java.util.Comparator.comparing(com.esocial.model.Assure::getId).reversed());
         for (int i = 0; i < Math.min(2, assures.size()); i++) {

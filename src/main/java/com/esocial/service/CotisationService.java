@@ -8,15 +8,12 @@ import java.util.List;
 
 public class CotisationService {
 
-    private static final double TAUX_SALARIAL = 0.0448; // 4.48%
-    private static final double TAUX_PATRONAL = 0.0898; // 8.98%
-    private static final double PLAFOND_MENSUEL = 6000.0; // 6000 MAD
+    private static final double TAUX_SALARIAL = 0.0448;
+    private static final double TAUX_PATRONAL = 0.0898;
+    private static final double PLAFOND_MENSUEL = 6000.0;
 
     private final CotisationDAO cotisationDAO = new CotisationDAO();
 
-    /**
-     * Calcule et enregistre les cotisations pour un assuré dans une déclaration.
-     */
     public Cotisation calculerEtEnregistrer(Assure assure, Declaration declaration, double salaireDeclare) {
         double salaireBase = Math.min(salaireDeclare, PLAFOND_MENSUEL);
 
@@ -48,9 +45,7 @@ public class CotisationService {
         return cotisationDAO.findByEmployeur(employeurId);
     }
 
-    /**
-     * Calcule le total des cotisations pour un employeur.
-     */
+
     public double getTotalCotisationsEmployeur(Long employeurId) {
         List<Cotisation> cotisations = cotisationDAO.findByEmployeur(employeurId);
         return cotisations.stream()

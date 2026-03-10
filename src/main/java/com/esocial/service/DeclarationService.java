@@ -15,7 +15,7 @@ public class DeclarationService {
     private final CotisationService cotisationService = new CotisationService();
 
     public Declaration creerDeclaration(Long employeurId, int mois, int annee) {
-        // Vérifier l'unicité (employeur, mois, année)
+
         Declaration existing = declarationDAO.findByEmployeurAndMoisAndAnnee(employeurId, mois, annee);
         if (existing != null) {
             throw new RuntimeException("Une déclaration existe déjà pour cet employeur pour " + mois + "/" + annee);

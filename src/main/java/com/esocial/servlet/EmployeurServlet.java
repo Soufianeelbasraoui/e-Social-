@@ -59,13 +59,13 @@ public class EmployeurServlet extends HttpServlet {
         String secteurActivite = request.getParameter("secteurActivite");
 
         if (idStr != null && !idStr.isEmpty()) {
-            // Mise à jour
+
             Employeur employeur = employeurService.getEmployeurById(Long.parseLong(idStr));
             employeur.setRaisonSociale(raisonSociale);
             employeur.setSecteurActivite(secteurActivite);
             employeurService.updateEmployeur(employeur);
         } else {
-            // Création
+
             employeurService.ajouterEmployeur(raisonSociale, secteurActivite);
         }
 
